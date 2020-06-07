@@ -13,3 +13,8 @@ rp0:
 rp3:
 	ssh 192.168.12.103 -l pi
 
+git-clone:
+	git clone https://github.com/bella-zach-project/hummingbird.git
+
+git-remote:
+	git remote add origin https://github.com/bella-zach-project/hummingbird.git
