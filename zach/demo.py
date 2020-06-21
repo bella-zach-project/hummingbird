@@ -5,15 +5,13 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master, width=3000)
         self.grid()
-        self.createWidgets('Hello there',0)
-        self.createWidgets('Bye',1)
+        self.createWidgets()
 
-    def createWidgets(self, t, c):
-        self.quitButton = tk.Button(self, text=t,
-            command=self.quit)
-        self.quitButton.grid(column=c, row = 0)
+    def createWidgets(self):
+        self.canvasFrame = tk.canvas(self, command=self.quit)
+        self.canvasFrame.grid(column=0, row = 0)
+
 
 app = Application()
-app.master.title('Sample application')
+app.master.title('Draw')
 app.mainloop()                     
-print('hello there')
