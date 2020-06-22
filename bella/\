@@ -1,0 +1,7 @@
+import canvas_project as zvc
+
+cv = zvc.vancas(1000, 600, 10, 10)
+
+
+
+input("type anything to stop");
