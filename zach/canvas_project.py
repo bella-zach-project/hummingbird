@@ -38,8 +38,15 @@ class vancas():
             self.canvas.create_line(0, bsep1, self.frame_width, bsep1)
             bsep1 = bsep1 + self.bar_sep
 
-obj = vancas(1000, 600, 10, 10)
-obj.draw_grid()
-obj.graph(0, 0)
-obj.graph(4, 4)
-hold = input("stalling until input")
+    def new_graph(self):
+        self.first = True
+
+def main():
+        obj = vancas(1000, 600, 10, 10)
+        obj.draw_grid()
+        obj.graph(0, 0)
+        obj.graph(4, 4)
+        hold = input("stalling until input")
+
+if __name__ == "__main__":
+        main()
