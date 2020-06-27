@@ -16,6 +16,10 @@ class vancas():
         self.first = True
         self.old_x = 0
         self.old_y = 0
+        self.scale_x = (self.frame_width/2000.0)
+        self.off_x = (self.frame_width/2)
+        self.scale_y = (-self.frame_height/2000.0)
+        self.off_y = (self.frame_height/2)
 
     def graph(self, x, y):
         if self.first:
@@ -40,13 +44,24 @@ class vancas():
 
     def new_graph(self):
         self.first = True
+    
+    def vert(self, x, y):
+        new_x = self.scale_x*x + self.off_x
+        new_y = self.scale_y*y + self.off_y
+        self.graph(new_x, new_y)
 
 def main():
-        obj = vancas(1000, 600, 10, 10)
-        obj.draw_grid()
+        obj = vancas(600, 600, 10, 10)
+#        obj.draw_grid()
+        obj.new_graph()
         obj.graph(0, 0)
         obj.graph(4, 4)
+        obj.new_graph()
+        obj.vert(0, 0)
+        obj.vert(900, 900)
+        obj.vert(900, 0)
+        obj.vert(0, 0)
         hold = input("stalling until input")
-
+        
 if __name__ == "__main__":
         main()
