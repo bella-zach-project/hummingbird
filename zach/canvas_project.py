@@ -10,6 +10,7 @@ class vancas():
         self.canvas = tk.Canvas(self.master,
                                 width = self.frame_width,
                                 height = self.frame_height)
+        self.canvas.bind("mouse-1", self.mouse_event)
         self.canvas.pack()
         self.column_sep = self.frame_width/self.column
         self.bar_sep = self.frame_height/self.bar
@@ -50,6 +51,9 @@ class vancas():
         new_y = self.scale_y*y + self.off_y
         self.graph(new_x, new_y)
 
+    def mouse_event(self, event):
+        print ("clicked", event.x, event.y)
+
 def main():
         obj = vancas(600, 600, 10, 10)
 #        obj.draw_grid()
@@ -61,7 +65,7 @@ def main():
         obj.vert(900, 900)
         obj.vert(900, 0)
         obj.vert(0, 0)
-        hold = input("stalling until input")
+        obj.master.mainloop()
         
 if __name__ == "__main__":
         main()
