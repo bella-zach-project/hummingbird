@@ -19,13 +19,33 @@ def sq(s,x,y):
 sq(20, 155, 90)
 sq(39, 500, 600)
 
-def circ(s,x,y):
+def circ(s,cx, cy,x,y):
+	global cv
+	dx = x - cx
+	dy = y - cy
+	sq(10, x, y)
+	cv.new_graph()
+	a = (2 * math.pi) / s
+	cos = math.cos(a)
+	sin = math.sin(a)
+	for _ in range(s + 1):
+		cv.graph(dx + cx , dy + cy)
+		newx = dx * cos - dy * sin
+		newy = dx * sin + dy * cos
+		dx = newx
+		dy = newy
+
+circ(100, 500, 200, 520, 3)
+
+
+def poly(s,a,x,y):
 	global cv
 	cv.new_graph()
-	for i in range(200 + 1):
-		a1 = i * ((2 *(math.pi)) / 200)
+	for i in range(a + 1):
+		a1 = i * ((2 *(math.pi)) / a)
 		x1 = s * (math.cos(a1)) + x
 		y1 = s * (math.sin(a1)) + y
 		cv.graph(x1,y1)	
-circ(100, 500, 200)
+poly(300,5, 400, 350)
+
 input("type anything to stop");
