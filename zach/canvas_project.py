@@ -10,7 +10,6 @@ class vancas():
         self.canvas = tk.Canvas(self.master,
                                 width = self.frame_width,
                                 height = self.frame_height)
-        self.canvas.bind("mouse-1", self.mouse_event)
         self.canvas.pack()
         self.column_sep = self.frame_width/self.column
         self.bar_sep = self.frame_height/self.bar
@@ -21,6 +20,20 @@ class vancas():
         self.off_x = (self.frame_width/2)
         self.scale_y = (-self.frame_height/2000.0)
         self.off_y = (self.frame_height/2)
+        self.rscale_x = (1/self.scale_x)
+        self.rscale_y = (1/self.scale_y)
+
+    def mainloop(self):
+        self.master.mainloop()
+
+    def bind(self, pic):
+        self.pic = pic
+        self.canvas.bind("<Button-1>", self.button_1)
+        
+    def button_1(self, event):
+        event.x = (event.x-self.off_x)*(self.rscale_x)
+        event.y = (event.y-self.off_y)*(self.rscale_y)
+        self.pic.button_1(event)
 
     def graph(self, x, y):
         if self.first:
@@ -51,21 +64,30 @@ class vancas():
         new_y = self.scale_y*y + self.off_y
         self.graph(new_x, new_y)
 
-    def mouse_event(self, event):
+class picture():
+    def __init__(self, obj):
+        self.obj = obj
+
+    def draw(self, ox, oy):
+        self.obj.new_graph()
+        self.obj.vert(ox-10, oy-10)
+        self.obj.vert(ox+10, oy+10)
+        self.obj.new_graph()
+        self.obj.vert(ox+10, oy-10)
+        self.obj.vert(ox-10, oy+10)
+
+    def button_1(self, event):
         print ("clicked", event.x, event.y)
+        self.draw(event.x, event.y)
+
 
 def main():
         obj = vancas(600, 600, 10, 10)
-#        obj.draw_grid()
         obj.new_graph()
-        obj.graph(0, 0)
-        obj.graph(4, 4)
-        obj.new_graph()
-        obj.vert(0, 0)
-        obj.vert(900, 900)
-        obj.vert(900, 0)
-        obj.vert(0, 0)
-        obj.master.mainloop()
+        pic = picture(obj)
+        pic.draw(50, 50)
+        obj.bind(pic)
+        obj.mainloop()
         
 if __name__ == "__main__":
         main()
