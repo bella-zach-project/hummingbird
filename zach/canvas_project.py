@@ -39,7 +39,6 @@ class vancas():
         if self.first:
             self.old_x = x
             self.old_y = y
-            print("i am first")
             self.first = False
         else:
             self.canvas.create_line(self.old_x, self.old_y, x, y)
@@ -77,7 +76,6 @@ class picture():
         self.obj.vert(ox-10, oy+10)
 
     def button_1(self, event):
-        print ("clicked", event.x, event.y)
         self.draw(event.x, event.y)
 
 
