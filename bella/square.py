@@ -4,8 +4,11 @@ from os.path import dirname, join, abspath
 sys.path.append(abspath(join(dirname(__file__), '..')))
 from zach import canvas_project as zvc
 
-def circle(ox, oy, s):
+def debug(ox, oy, x, y, s):
 	global cv
+#	cv.new_graph()
+#	cv.vert(x, y)
+#	cv.vert(ox, oy)
 	cv.new_graph()
 	for i in range(17):
 		a1 = i * ((2 *(math.pi)) / 16)
@@ -22,10 +25,10 @@ class epi():
 		self.rate = rate
 	def draw(self, ox, oy, t):
 		global cv
-		# circle(ox, oy, self.s)
 		a1 = (t * self.rate) + self.sa
 		x1 = self.s * (math.cos(a1)) + ox
 		y1 = self.s * (math.sin(a1)) + oy
+		debug(ox, oy, x1, y1, self.s)
 		if self.p:
 			self.p.draw(x1, y1, t)
 		else:
@@ -61,16 +64,16 @@ class picture():
 	def __init__(self):
 		self.q = poly(100, 45)
 		self.p = poly(100,12, self.q)
-		self.e1 = epi(100, 0, -0.1)
-		self.e2 = epi(100, 0,0.05, self.e1)
+		self.e1 = epi(100,         0, -1)
+		self.e0 = epi(100, math.pi/4,  1, self.e1)
+		self.t = 0
 	def draw_epi(self):
-		for t in range (300):
-			self.e2.draw(0, 0, t)
+		self.e0.draw(0, 0, self.t)
+		self.t = self.t + 1
 	def draw(self, ox, oy):
 		self.p.draw(ox, oy)
 	def button_1(self, event):
-		print ("clocled", event.x, event.y)
-		self.draw(event.x, event.y)
+		self.draw_epi()
 cv = zvc.vancas(640, 640, 8, 8)
 cv.draw_grid()
 pic = picture()
