@@ -64,21 +64,22 @@ class picture():
     def __init__(self):
         self.q = poly(100, 45)
         self.p = poly(100,12, self.q)
-        self.e1 = epi(25,         0, -1)
-        self.e0 = epi(100, math.pi/4,  1, self.e1)
+        self.e1 = epi(100,         0, -3)
+        self.e0 = epi(300, math.pi/4,  1, self.e1)
         self.t = 0
-    def draw_epi(self):
+    def draw_epi(self,r):
+        self.e1.s = r
         self.e0.draw(0, 0, self.t)
         self.t = self.t + 1
     def draw(self, ox, oy):
         self.p.draw(ox, oy)
     def button_1(self, event):
-        self.draw_epi()
+        for i in range(200):
+            self.draw_epi(event.x/10)
 cv = zvc.vancas(640, 640, 8, 8)
 cv.draw_grid()
 pic = picture()
 cv.bind(pic)
-pic.draw_epi()
 pic.draw(300, 200)
 pic.draw(100, 600)
 
