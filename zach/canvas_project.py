@@ -64,7 +64,7 @@ class vancas():
         self.graph(new_x, new_y)
 
     def clear_screen(self):
-        self.canvas.delete(all)
+        self.canvas.delete('all')
 
 class picture():
     def __init__(self, obj):
