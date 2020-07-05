@@ -4,7 +4,7 @@ from os.path import dirname, join, abspath
 sys.path.append(abspath(join(dirname(__file__), '..')))
 from zach import canvas_project as zvc
 
-def debug(ox, oy, x, y, s):
+def debug(ox, oy, x, y, radius):
     global cv
 #   cv.new_graph()
 #   cv.vert(x, y)
@@ -18,17 +18,17 @@ def debug(ox, oy, x, y, s):
 
 
 class epi():
-    def __init__(self, s, sa, rate, p = None):
-        self.s = s
+    def __init__(self, radius, sa, rate, p = None):
+        self.radius = radius
         self.sa = sa
         self.p = p
         self.rate = rate
     def draw(self, ox, oy, t):
         global cv
         a1 = (t * self.rate) + self.sa
-        x1 = self.s * (math.cos(a1)) + ox
-        y1 = self.s * (math.sin(a1)) + oy
-        debug(ox, oy, x1, y1, self.s)
+        x1 = self.radius * (math.cos(a1)) + ox
+        y1 = self.radius * (math.sin(a1)) + oy
+        debug(ox, oy, x1, y1, self.radius)
         if self.p:
             self.p.draw(x1, y1, t)
         else:
@@ -65,17 +65,21 @@ class picture():
         self.q = poly(100, 45)
         self.p = poly(100,12, self.q)
         self.e1 = epi(100,         0, -3)
-        self.e0 = epi(300, math.pi/4,  1, self.e1)
+        self.e0 = epi(300, 0,  1, self.e1)
         self.t = 0
-    def draw_epi(self,r):
-        self.e1.s = r
+    def draw_epi(self,radius, rate):
+        self.e1.radius = radius
+        self.e1.rate = rate
         self.e0.draw(0, 0, self.t)
         self.t = self.t + 1
     def draw(self, ox, oy):
         self.p.draw(ox, oy)
     def button_1(self, event):
+        global cv
+        cv.clear_screen()
         for i in range(200):
-            self.draw_epi(event.x/10)
+            print(event.x, event.y)
+            self.draw_epi(event.x/10,int(event.y / 100))
 cv = zvc.vancas(640, 640, 8, 8)
 cv.draw_grid()
 pic = picture()
